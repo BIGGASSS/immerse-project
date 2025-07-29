@@ -41,14 +41,44 @@ def listShip():
         print(f"Orientation: {shipList[i].getOrient()}")
         print()
 
-def createShip(n):
-    for _ in range(n):
+def check_in_borders(n, x, y, l, orientation):
+    if l > n:
+        return False
+    else:
+        if orientation == 'up':
+            if y - l >= 0:
+                return True
+            else:
+                return False
+        elif orientation == 'down':
+            if y + l <= n :
+                return True
+            else:
+                return False
+        elif orientation == 'right':
+            if x + l <= n:
+                return True
+            else:
+                return False
+        elif orientation == 'left':
+            if x - l >= n:
+                return True
+            else:
+                return False
+        else:
+            return False
+
+def createShip(cnt):
+    for _ in range(cnt):
         l = int(input("Insert the length of your ship: "))
         x = int(input("Insert the x coordinate of your ship: "))
         y = int(input("Insert the y coordinate of your ship: "))
         orient = input("Choose the orientation of you ship(left/right/up/down): ")
-        ship = Ship(l, x, y, orient)
-        shipList.append(ship)
+        if check_in_borders(length, x, y, l, orient):
+            ship = Ship(l, x, y, orient)
+            shipList.append(ship)
+        else:
+            print("Couldn't fit your ship in!")
 
 length = int(input("Please input the length of the grid"))
 b1 = Battlefield(length)
