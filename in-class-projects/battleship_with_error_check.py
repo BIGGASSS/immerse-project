@@ -145,10 +145,21 @@ class Battlefield:
         shiplist list of ships
         """
         for i in range(n):
-            l = int(input(f"Insert the length of ship number {i+1}: "))
-            x = int(input(f"Insert the x coordinate of ship number {i+1}: "))
-            y = int(input(f"Insert the y coordinate of ship number {i+1}: "))
-            direction = str(input(f"Insert the direction of ship number {i+1}: "))
+            valid = False
+            while valid == False:
+                l = input(f"Insert the length of ship number {i+1}: ")
+                if l == '1' or l == '2' or l == '3':
+                    l = int(l)
+                    valid = True
+                else:
+                    print("Not valid!")
+            valid = False
+            while valid == False:
+                x = input(f"Insert the x coordinate of ship number {i+1}: ")
+                if x == '':
+                    pass
+            y = input(f"Insert the y coordinate of ship number {i+1}: ")
+            direction = input(f"Insert the direction of ship number {i+1}: ")
             direction = direction.lower()
             ship = Ship(l, x, y, direction)
             #TODO: Keep asking for a new ship until it's valid
