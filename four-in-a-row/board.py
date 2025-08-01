@@ -35,19 +35,16 @@ class Board:
                 if (self.grid[row][col] == side and self.grid[row][col + 1] == side 
                     and self.grid[row][col + 2] == side and self.grid[row][col + 3] == side):
                     return True
-        
         for row in range(3): # Vertical 
             for col in range(7):
                 if (self.grid[row][col] == side and self.grid[row + 1][col] == side and 
                     self.grid[row + 2][col] == side and self.grid[row + 3][col] == side):
                     return True
-        
         for row in range(3): # Top-left to bottom-right
             for col in range(4):
                 if (self.grid[row][col] == side and self.grid[row + 1][col + 1] == side and 
                     self.grid[row + 2][col + 2] == side and self.grid[row + 3][col + 3] == side):
                     return True
-        
         for row in range(3): # Top-right to bottom-left
             for col in range(3, 7):
                 if (self.grid[row][col] == side and self.grid[row + 1][col - 1] == side and 
