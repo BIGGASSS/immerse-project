@@ -12,7 +12,7 @@ while board.check_win(1) == False and board.check_win(2) == False:
     valid = False
     while valid == False: # Keeps prompting the user until a valid value is received
         col = input(f"{turn}, insert the column you want to fill(1-7)\n")
-        if col == '1' or col == '2' or col == '3' or col == '4' or col == '5' or col == '6' or col == '7':
+        if col in ['1', '2', '3', '4', '5', '6', '7']:
             col = int(col) - 1
             valid = True
         else:

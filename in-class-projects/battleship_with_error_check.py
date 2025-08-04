@@ -234,8 +234,11 @@ class Battlefield:
         params:
         returns: True if hit, False otherwise
         """
-        x = int(input('Where do you want to attack (x coordinate): '))
-        y = int(input('Where do you want to attack (y coordinate): '))
+        try:
+            x = int(input('Where do you want to attack (x coordinate): '))
+            y = int(input('Where do you want to attack (y coordinate): '))
+        except ValueError:
+            print("Not valid!")
         if not self.grid[y][x] == '?':
             print("Not valid!")
             return False
@@ -257,60 +260,73 @@ class Battlefield:
 
 
 
-
-clear_screen()
-length = int(input("Please input the length of the grid\n"))
-bf1 = Battlefield(length)
-bf2 = Battlefield(length)
-
-
-turn = 'player1'
-game_over = False
-
-
-print(turn)
-n = int(input("How many ships do you want to create?\n"))
-shiplist = bf1.createships(n)
-for i in range(len(shiplist)):
-    bf1.placeship(shiplist[i])
-bf1.displaygrid(bf1.shipgrid)
-time.sleep(3)
-clear_screen()
-turn = "player2"
+if __name__ == "__main__":
+    clear_screen()
+    try:
+        length = int(input("Please input the length of the grid\n"))
+    except ValueError:
+        print("Not valid!")
+        length = int(input("Please input the length of the grid\n"))
+    bf1 = Battlefield(length)
+    bf2 = Battlefield(length)
 
 
-print(turn)
-n = int(input("How many ships do you want to create?\n"))
-shiplist = bf2.createships(n)
-for i in range(len(shiplist)):
-    bf2.placeship(shiplist[i])
-bf2.displaygrid(bf2.shipgrid)
-time.sleep(3)
-clear_screen()
+    turn = 'player1'
+    game_over = False
 
 
-# This for loop will be while game_over is False:
-while game_over == False:
-    if turn == 'player2':
-        turn = 'player1'
-        bf2.displaygrid(bf2.grid)
-        print("Player 1")
-        hit = bf2.attack()
-        time.sleep(3)
-        clear_screen()
-        game_over = bf2.is_game_over()
-        if game_over:
-            print("Player 1 wins!")
-    else:
-        turn = 'player2'
-        bf1.displaygrid(bf1.grid)
-        print("Player 2")
-        hit = bf1.attack()
-        time.sleep(3)
-        game_over = bf1.is_game_over()
-        if game_over:
-            print("Player 2 wins!")
-            time.sleep(5)
-        clear_screen()
+    print(turn)
+    try:
+        n = int(input("How many ships do you want to create?\n"))
+    except ValueError:
+        print("Not valid!")
+        n = int(input("How many ships do you want to create?\n"))
+    shiplist = bf1.createships(n)
+    for i in range(len(shiplist)):
+        bf1.placeship(shiplist[i])
+    bf1.displaygrid(bf1.shipgrid)
+    time.sleep(3)
+    clear_screen()
+    turn = "player2"
+
+
+    print(turn)
+    try:
+        n = int(input("How many ships do you want to create?\n"))
+    except ValueError:
+        print("Not valid!")
+        n = int(input("How many ships do you want to create?\n"))
+
+    shiplist = bf2.createships(n)
+    for i in range(len(shiplist)):
+        bf2.placeship(shiplist[i])
+    bf2.displaygrid(bf2.shipgrid)
+    time.sleep(3)
+    clear_screen()
+
+
+    # This for loop will be while game_over is False:
+    while game_over == False:
+        if turn == 'player2':
+            turn = 'player1'
+            bf2.displaygrid(bf2.grid)
+            print("Player 1")
+            hit = bf2.attack()
+            time.sleep(3)
+            clear_screen()
+            game_over = bf2.is_game_over()
+            if game_over:
+                print("Player 1 wins!")
+        else:
+            turn = 'player2'
+            bf1.displaygrid(bf1.grid)
+            print("Player 2")
+            hit = bf1.attack()
+            time.sleep(3)
+            game_over = bf1.is_game_over()
+            if game_over:
+                print("Player 2 wins!")
+                time.sleep(5)
+            clear_screen()
 
 
