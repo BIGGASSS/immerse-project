@@ -153,22 +153,34 @@ class Battlefield:
                     valid = True
                 else:
                     print("Not valid!")
-            valid = False
-            while valid == False:
-                x = input(f"Insert the x coordinate of ship number {i+1}: ")
-                if x == '':
-                    pass
-            y = input(f"Insert the y coordinate of ship number {i+1}: ")
+            try:
+                x = int(input(f"Insert the x coordinate of ship number {i+1}: "))
+                y = int(input(f"Insert the y coordinate of ship number {i+1}: "))
+            except ValueError:
+                print("Not valid!")
+                x = int(input(f"Insert the x coordinate of ship number {i+1}: "))
+                y = int(input(f"Insert the y coordinate of ship number {i+1}: "))
             direction = input(f"Insert the direction of ship number {i+1}: ")
             direction = direction.lower()
             ship = Ship(l, x, y, direction)
-            #TODO: Keep asking for a new ship until it's valid
-            if check_in_borders(self.length, ship) is True and self.colcheck(ship) is True:
-                self.shiplist.append(ship)
-                self.placeship(ship)
-            else:
-                print("Not Valid!")
-       
+            valid = False
+            while valid == False:
+                if check_in_borders(self.length, ship) is True and self.colcheck(ship) is True:
+                    self.shiplist.append(ship)
+                    self.placeship(ship)
+                    valid = True
+                else:
+                    print("Not Valid!")
+                try:
+                    x = int(input(f"Insert the x coordinate of ship number {i+1}: "))
+                    y = int(input(f"Insert the y coordinate of ship number {i+1}: "))
+                except ValueError:
+                    print("Not valid!")
+                    x = int(input(f"Insert the x coordinate of ship number {i+1}: "))
+                    y = int(input(f"Insert the y coordinate of ship number {i+1}: "))
+                    direction = input(f"Insert the direction of ship number {i+1}: ")
+                    direction = direction.lower()
+                    ship = Ship(l, x, y, direction)
         return self.shiplist
    
     def colcheck(self, ship):
