@@ -145,43 +145,40 @@ class Battlefield:
         shiplist list of ships
         """
         for i in range(n):
-            valid = False
-            while valid == False:
-                l = input(f"Insert the length of ship number {i+1}: ")
-                if l == '1' or l == '2' or l == '3':
-                    l = int(l)
-                    valid = True
-                else:
-                    print("Not valid!")
-            try:
-                x = int(input(f"Insert the x coordinate of ship number {i+1}: "))
-                y = int(input(f"Insert the y coordinate of ship number {i+1}: "))
-            except ValueError:
-                print("Not valid!")
-                x = int(input(f"Insert the x coordinate of ship number {i+1}: "))
-                y = int(input(f"Insert the y coordinate of ship number {i+1}: "))
-            direction = input(f"Insert the direction of ship number {i+1}: ")
-            direction = direction.lower()
-            ship = Ship(l, x, y, direction)
-            valid = False
-            while valid == False:
-                if check_in_borders(self.length, ship) is True and self.colcheck(ship) is True:
-                    self.shiplist.append(ship)
-                    self.placeship(ship)
-                    valid = True
-                else:
-                    print("Not Valid!")
+            while True:
                 try:
-                    x = int(input(f"Insert the x coordinate of ship number {i+1}: "))
-                    y = int(input(f"Insert the y coordinate of ship number {i+1}: "))
+                    l = int(input(f"Insert the length of ship number {i+1}: "))
+                    break
                 except ValueError:
                     print("Not valid!")
+            while True:
+                try:
                     x = int(input(f"Insert the x coordinate of ship number {i+1}: "))
+                    break
+                except ValueError:
+                    print("Not valid!")
+            while True:
+                try:
                     y = int(input(f"Insert the y coordinate of ship number {i+1}: "))
-                    direction = input(f"Insert the direction of ship number {i+1}: ")
-                    direction = direction.lower()
-                    ship = Ship(l, x, y, direction)
+                    break
+                except ValueError:
+                    print("Not valid!")
+            while True:
+                direction = str(input(f"Insert the direction of ship number {i+1}: "))
+                if direction in ["up", "down", "left", "right"]:
+                    break
+                else:
+                    print("Not valid!")
+            direction = direction.lower()
+            ship = Ship(l, x, y, direction)
+            if check_in_borders(self.length, ship) is True and self.colcheck(ship) is True:
+                self.shiplist.append(ship)
+                self.placeship(ship)
+            else:
+                print("Not Valid!")
+       
         return self.shiplist
+
    
     def colcheck(self, ship):
         x = ship.x_pos
@@ -246,11 +243,18 @@ class Battlefield:
         params:
         returns: True if hit, False otherwise
         """
-        try:
-            x = int(input('Where do you want to attack (x coordinate): '))
-            y = int(input('Where do you want to attack (y coordinate): '))
-        except ValueError:
-            print("Not valid!")
+        while True:
+            try:
+                x = int(input('Where do you want to attack (x coordinate): '))
+                break
+            except ValueError:
+                print("Not valid!")
+        while True:
+            try:
+                y = int(input('Where do you want to attack (y coordinate): '))
+                break
+            except ValueError:
+                print("Not valid!")
         if not self.grid[y][x] == '?':
             print("Not valid!")
             return False
@@ -274,25 +278,25 @@ class Battlefield:
 
 if __name__ == "__main__":
     clear_screen()
-    try:
-        length = int(input("Please input the length of the grid\n"))
-    except ValueError:
-        print("Not valid!")
-        length = int(input("Please input the length of the grid\n"))
+    while True:
+        try:
+            length = int(input("Please input the length of the grid\n"))
+            break
+        except ValueError:
+            print("Not valid!")
     bf1 = Battlefield(length)
     bf2 = Battlefield(length)
-
 
     turn = 'player1'
     game_over = False
 
-
     print(turn)
-    try:
-        n = int(input("How many ships do you want to create?\n"))
-    except ValueError:
-        print("Not valid!")
-        n = int(input("How many ships do you want to create?\n"))
+    while True:
+        try:
+            n = int(input("How many ships do you want to create?\n"))
+            break
+        except ValueError:
+            print("Not valid!")
     shiplist = bf1.createships(n)
     for i in range(len(shiplist)):
         bf1.placeship(shiplist[i])
@@ -301,21 +305,19 @@ if __name__ == "__main__":
     clear_screen()
     turn = "player2"
 
-
     print(turn)
-    try:
-        n = int(input("How many ships do you want to create?\n"))
-    except ValueError:
-        print("Not valid!")
-        n = int(input("How many ships do you want to create?\n"))
-
+    while True:
+        try:
+            n = int(input("How many ships do you want to create?\n"))
+            break
+        except ValueError:
+            print("Not valid!")
     shiplist = bf2.createships(n)
     for i in range(len(shiplist)):
         bf2.placeship(shiplist[i])
     bf2.displaygrid(bf2.shipgrid)
     time.sleep(3)
     clear_screen()
-
 
     # This for loop will be while game_over is False:
     while game_over == False:
