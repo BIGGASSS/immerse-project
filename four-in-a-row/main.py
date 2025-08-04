@@ -56,7 +56,7 @@ else:
                 else:
                     print("Not valid!")
         else:
-            col = utils.rand_int(0, 6)
+            col = board.bot_place()
         if board.place(col, turn) == True:
             utils.clear_screen()
             board.show_board()

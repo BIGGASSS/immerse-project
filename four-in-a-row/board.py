@@ -1,3 +1,5 @@
+import utils
+
 class Board:
     def __init__(self):
         pass
@@ -51,3 +53,8 @@ class Board:
                     self.grid[row + 2][col - 2] == side and self.grid[row + 3][col - 3] == side):
                     return True
         return False
+    def bot_place(self):
+        for i in [3, 2, 4, 1, 5, 0, 6]: # Prioritize columns in the middle
+            if self.deter_bottom(i) != -1:
+                return i
+        return utils.rand_int(0, 6) # Fallback to random integer
